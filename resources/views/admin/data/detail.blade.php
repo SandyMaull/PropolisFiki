@@ -97,7 +97,6 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
-         ]
         });
     });
     </script>
