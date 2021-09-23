@@ -13,18 +13,14 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::get('/', 'HomeController@index');
 
 Auth::routes([
     'register' => FALSE,
 ]);
 
-
 Route::prefix('home')->group(function () {
-    Route::get('/', 'HomePageController@index')->name('home');
+    Route::get('/', 'HomepageController@index')->name('home');
     Route::prefix('data')->group(function () {
         Route::get('/', 'DataController@index')->name('all_data');
         Route::get('/allDataJson', 'DataController@getDataTables')->name('getAllDataJson');
