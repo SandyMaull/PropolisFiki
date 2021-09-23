@@ -140,6 +140,12 @@ class DataController extends Controller
 
     public function deleteData(Request $request)
     {
-        dd($request->all());
+        $hapus = Data::destroy($request->id);
+        if ($hapus) {
+            return redirect()->route('all_data')->with(['status' => 'sukses', 'message' => ' Data Berhasil Dihapus!']);
+        }
+        else {
+            return redirect()->route('all_data')->with(['status' => 'error','message' => ' Data Gagal Dihapus! Check Database Connection.']);
+        }
     }
 }
