@@ -55,10 +55,16 @@ class DataController extends Controller
            $no_telp = $record->no_telp;
            $position = $record->position;
            $getsuperior = Data::where('id', $record->superior)->first();
-           $superior = ($getsuperior) ? $getsuperior->nama : 'Tidak Ada';
+           if ($getsuperior) {
+               $superiornama = $getsuperior->nama;
+               $superior = "<a href='". url('/home/data/getDetail/' . $id . '/' . $getsuperior->id) ."' >". $superiornama ." </a>";
+           } else {
+               $superiornama = 'Tidak Ada';
+               $superior = 'Tidak Ada';
+           }
    
             // Update Button
-            $updateButton = "<button class='btn btn-sm btn-info' data-id='".$id."' data-nama='".$nama."' data-no_telp='".$no_telp."' data-position='".$position."' data-superior='".$superior."' data-toggle='modal' data-target='#modal_edit_data' >Update</button>";
+            $updateButton = "<button class='btn btn-sm btn-info' data-id='".$id."' data-nama='".$nama."' data-no_telp='".$no_telp."' data-position='".$position."' data-superior='".$superiornama."' data-toggle='modal' data-target='#modal_edit_data' >Update</button>";
             // Delete Button
             $deleteButton = "<button class='btn btn-sm btn-danger' data-id='".$id."' data-nama='".$nama."' data-toggle='modal' data-target='#modal_delete_data'>Delete</button>";
             $action = $updateButton." ".$deleteButton;
@@ -92,6 +98,15 @@ class DataController extends Controller
         }
     }
 
+    public function getDetailSuperior($id, $atasanid)
+    {
+        $self = Data::where('id', $id)->first();
+        $atasan = Data::where('id', $atasanid)->first();
+        $bawahan = Data::where('superior', $id)->get();
+        // dd($bawahan);
+        return view('admin.data.detail', ['self' => $self, 'atasan' => $atasan, 'bawahan' => $bawahan]);
+    }
+
     public function updateData(Request $request)
     {
         $request->validate([
@@ -103,7 +118,7 @@ class DataController extends Controller
         [
             'id.required' => 'Field ID dibutuhkan!',
             'nama.required' => 'Field Nama dibutuhkan!',
-            'telp.required' => 'Field Tanggal dibutuhkan!',
+            'telp.required' => 'Field Telp dibutuhkan!',
             'position.required' => 'Field Position dibutuhkan!',
             
         ]);
@@ -135,6 +150,47 @@ class DataController extends Controller
         }
         else {
             return redirect()->route('all_data')->with(['status' => 'error','message' => ' Data Gagal Diupdate! Check Database/Server Log!.']);
+        }
+    }
+
+    public function addData(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'telp' => 'required',
+            'position'=> 'required',
+        ],
+        [
+            'nama.required' => 'Field Nama dibutuhkan!',
+            'telp.required' => 'Field Telp dibutuhkan!',
+            'position.required' => 'Field Position dibutuhkan!',
+            
+        ]);
+        if (!$request->superior) {
+            if ($request->non_superior == 1) {
+                $newData = new Data;
+                $newData->nama = $request->nama;
+                $newData->no_telp = $request->telp;
+                $newData->position = $request->position;
+                $newData->superior = 0;
+            } else {
+                $newData = new Data;
+                $newData->nama = $request->nama;
+                $newData->no_telp = $request->telp;
+                $newData->position = $request->position;
+            }
+        } else {
+            $newData = new Data;
+            $newData->nama = $request->nama;
+            $newData->no_telp = $request->telp;
+            $newData->position = $request->position;
+            $newData->superior = $request->superior;
+        }
+        if ($newData->save()) {
+            return redirect()->route('all_data')->with(['status' => 'sukses', 'message' => ' Data Berhasil Ditambah!']);
+        }
+        else {
+            return redirect()->route('all_data')->with(['status' => 'error','message' => ' Data Gagal Ditambah! Check Database/Server Log!.']);
         }
     }
 

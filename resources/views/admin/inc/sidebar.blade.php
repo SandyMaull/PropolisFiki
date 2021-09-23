@@ -71,12 +71,12 @@
                                 <p>Semua Data</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" id="sidebar_child_adddata" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tambah Data</p>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             </ul>

@@ -98,8 +98,27 @@
         
       });
       
-    
+
     </script>
+    @endif
+    @if ($errors->count() > 0)
+      @foreach ($errors->all() as $error)
+      <script type="text/javascript">
+          var error = '{{ $error }}';
+          $(function() {
+          const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000
+          });
+          Toast.fire({
+              icon: 'error',
+              title: error
+          });
+          });
+      </script>
+      @endforeach
     @endif
     @yield('js')
 </body>

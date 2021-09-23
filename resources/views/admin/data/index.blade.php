@@ -29,7 +29,6 @@
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
 @endsection
 
 @section('content')
@@ -47,7 +46,7 @@
                         </a>
                     </div>
                     <div class="col-2 text-center">
-                        <a type="button" href="#" class="btn btn-success btn-sm">
+                        <a type="button" href="#" class="btn btn-success btn-sm" data-toggle='modal' data-target='#modal_add_data'>
                             Add
                         </a>
                     </div>
@@ -76,13 +75,60 @@
                             <th>Action</th>
                         </tr>
                     </tfoot>
-                    {{-- {{ $data->links() }} --}}
                 </table>
             </div>
-            <!-- /.card-body -->
         </div>
     </div>
 </div>
+
+
+{{-- Modal Tambah Data --}}
+    <div class="modal fade" id="modal_add_data">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('addDataPost') }}" method="post">
+                    @csrf
+                    <div class="modal-header">
+                        <h4 class="modal-title">Tambah Data Baru</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="NamaEdit">Nama</label>
+                            <input type="text" class="form-control" name="nama" placeholder="Masukan Data Nama">
+                        </div>
+                        <div class="form-group">
+                            <label for="TelpEdit">No. Telp</label>
+                            <input type="text" class="form-control" name="telp" placeholder="Masukan Data Nomor Telp">
+                        </div>
+                        <div class="form-group">
+                            <label for="PositionEdit">Position</label>
+                            <select class="form-control" name="position">
+                                <option value="Distributor">Distributor</option>
+                                <option value="Agent">Agent</option>
+                                <option value="Reseller">Reseller</option>
+                                <option value="CT">CT</option>
+                                <option value="Other">Other</option>
+                              </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="SuperiorEdit">Superior</label><br>
+                            <input type="checkbox" id="rem_sup" name="non_superior" value="1">
+                            <label for="rem_sup"> Non-Superior (Tanpa Atasan)</label><br>
+                            <select class="cari form-control" name="superior"></select>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Add Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
 {{-- Modal Edit Data --}}
     <div class="modal fade" id="modal_edit_data">
@@ -115,10 +161,6 @@
                                 <option value="Other">Other</option>
                               </select>
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="SuperiorEdit">Superior</label>
-                            <input type="text" class="form-control" name="superior" id="SuperiorEdit" disabled>
-                        </div> --}}
                         <div class="form-group">
                             <label for="SuperiorEdit">Superior</label><br>
                             <input type="checkbox" id="rem_sup" name="rem_superior" value="1">
@@ -177,7 +219,7 @@
             "paging": true,
             "lengthChange": false,
             "ordering": true,
-            // "info": false,
+            "info": true,
             "autoWidth": false,
             "responsive": true,
             processing: true,

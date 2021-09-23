@@ -23,8 +23,10 @@ Route::prefix('home')->group(function () {
     Route::get('/', 'HomepageController@index')->name('home');
     Route::prefix('data')->group(function () {
         Route::get('/', 'DataController@index')->name('all_data');
+        Route::get('/getDetail/{id}/{atasanid}', 'DataController@getDetailSuperior')->name('get_detail_data');
         Route::get('/allDataJson', 'DataController@getDataTables')->name('getAllDataJson');
         Route::get('/getName', 'DataController@getName')->name('getNameDataJson');
+        Route::post('/addData', 'DataController@addData')->name('addDataPost');
         Route::post('/editData', 'DataController@updateData')->name('editDataPost');
         Route::post('/deleteData', 'DataController@deleteData')->name('deleteDataPost');
     });
