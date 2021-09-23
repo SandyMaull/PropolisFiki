@@ -103,7 +103,6 @@ class DataController extends Controller
         $self = Data::where('id', $id)->first();
         $atasan = Data::where('id', $atasanid)->first();
         $bawahan = Data::where('superior', $id)->get();
-        // dd($bawahan);
         return view('admin.data.detail', ['self' => $self, 'atasan' => $atasan, 'bawahan' => $bawahan]);
     }
 
