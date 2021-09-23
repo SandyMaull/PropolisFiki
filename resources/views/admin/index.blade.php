@@ -14,7 +14,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Ganava</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Propolisku Data</a></li>
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ol>
                 </div><!-- /.col -->
@@ -90,7 +90,7 @@
     </div>
     <!-- /.row -->
     <!-- Main row -->
-    <div class="row">
+    {{-- <div class="row">
         <!-- Left col -->
         <section class="col-lg-7 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
@@ -604,6 +604,12 @@
             <!-- /.card -->
         </section>
         <!-- right col -->
-    </div>
+    </div> --}}
     <!-- /.row (main row) -->
+@endsection
+
+@section('js')
+    <script>
+        document.getElementById("sidebar_dashboard").classList.add("active");
+    </script>
 @endsection

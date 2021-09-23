@@ -22,12 +22,12 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-header">Module</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ url('/home') }}" id="sidebar_dashboard" class="nav-link">
                         <i class="fas fa-circle nav-icon"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview">
+                <li id="sidebar_parent_data" class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-circle"></i>
                         <p>
@@ -66,21 +66,15 @@
                             </ul>
                         </li> --}}
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('all_data') }}" id="sidebar_child_alldata" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Semua Data</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="#" id="sidebar_child_adddata" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tambah Data</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Edit Data</p>
                             </a>
                         </li>
                     </ul>

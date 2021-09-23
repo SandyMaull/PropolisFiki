@@ -22,4 +22,14 @@ Auth::routes([
     'register' => FALSE,
 ]);
 
-Route::get('/home', 'HomePageController@index')->name('home');
+
+Route::prefix('home')->group(function () {
+    Route::get('/', 'HomePageController@index')->name('home');
+    Route::prefix('data')->group(function () {
+        Route::get('/', 'DataController@index')->name('all_data');
+        Route::get('/allDataJson', 'DataController@getDataTables')->name('getAllDataJson');
+        Route::get('/getName', 'DataController@getName')->name('getNameDataJson');
+        Route::post('/editData', 'DataController@updateData')->name('editDataPost');
+        Route::post('/deleteData', 'DataController@deleteData')->name('deleteDataPost');
+    });
+});

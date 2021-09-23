@@ -16,8 +16,10 @@ class Data extends Migration
         Schema::create('data', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama');
-            $table->string('no_help')->unique();
+            $table->string('no_telp')->unique();
+            $table->enum('position', ['Distributor', 'Agent', 'Reseller', 'CT', 'Other']);
             $table->integer('superior')->nullable();
+            $table->timestamps();
         });
     }
 
